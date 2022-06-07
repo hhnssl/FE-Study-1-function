@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>count-down-timer</title>
+</head>
+
+<body>
+  <h1 class="text-center" id="count-down-timer"></h1>
+
+  <script>
+    // 시:분:초 서식 함수
+    function paddedFormat(num) {
+      return num < 10 ? "0" + num : num;
+    }
+
+    // 카운트 시작 함수(기간, 태그)
+    function startCountDown(duration, element) {
+      let remainedDuration = duration;
+      let hour, min, sec = 0;
+
+      let countInterval = setInterval(() => {
+        // 초로 되어있는 시간을 시분초로
+        hour = parseInt(remainedDuration / 3600);
+        min = parseInt(remainedDuration % 3600 / 60);
+        sec = parseInt(remainedDuration % 60);
+
+        element.textContent = `${paddedFormat(hour)}:${paddedFormat(min)}:${paddedFormat(sec)}`;
+        remainedDuration -= 1;
+
+        if (remainedDuration < 0) {
+          clearInterval(countInterval);
+        }
+      }, 1000); // 1초 마다 반복
+    }
+
+    // 페이지가 로드되면
+    window.onload = function () {
+      // 타이머를 가동시킬 시간
+      let time_hours = 1;
+      let time_minutes = 0;
+      let time_seconds = 10;
+
+      // 1시간 1분 10초를 초로 바꾸기
+      let duration = (time_hours * 3600) + (time_minutes * 60) + time_seconds;
+
+      let element = document.querySelector("#count-down-timer");
+      //초기 세팅
+      element.textContent = `${paddedFormat(time_hours)}:${paddedFormat(time_minutes)}:${paddedFormat(time_seconds)}`;
+      console.log(paddedFormat(element.textContent));
+
+      startCountDown(--duration, element);
+    }
+  </script>
+</body>
+
+</html>
