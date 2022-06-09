@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<body>
+  <div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+  function App() {
+    const [minutes, setMinutes] = React.useState(0);
+
+    // input의 값이 바뀔 때 마다
+    const onChange = (event) => {
+      setMinutes(event.target.value);
+    };
+
+    const reset = () => {
+      setMinutes(0);
+    };
+
+
+    return (
+      <di>
+        <h1>분을 시간 단위로 바꾸기</h1>
+
+        <div>
+          <label for="minutes">Minutes</label>
+          <input
+            value={minutes}
+            onChange={onChange}
+            placeholder="Minutes"
+            id="minutes"
+            type="number" />
+        </div>
+
+        <div>
+          <label for="hours">Hours</label>
+          <input
+            value={minutes / 60}
+            placeholder="Hours"
+            id="hours"
+            type="number"
+            disabled />
+        </div>
+
+        <button onClick={reset}>reset</button>
+      </di>
+    );
+
+  }
+
+  const root = document.getElementById("root");
+  ReactDOM.render(<App />, root);
+</script>
+
+</html>
