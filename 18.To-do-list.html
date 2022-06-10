@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<body>
+  <div id="root"></div>
+</body>
+
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  function App() {
+    const [toDo, setToDo] = React.useState("");
+    const [toDos, setToDos] = React.useState([]); // todo들을 저장하는 배열
+
+    // input에 입력할 때마다 실행되는 함수
+    const onChange = (evnet) => setToDo(event.target.value); // input 창에 입력한 값을 그대로 보여준다 
+
+    // button으로 submit 할 때마다 실행되는 함수
+    const onSubmit = (event) => {
+      event.preventDefault(); // button submit 의 새로고침 없애기
+
+      if (toDo === "") return; // 아무것도 입력안하고 버튼 누르는 것 방지
+
+      setToDos((currnetArray) => [toDo, ...currnetArray]); //배열에 새로운 todo 추가하기
+      setToDo(""); // submit 누르면 인풋창 비우기
+
+    };
+    console.log(toDos);
+
+    return (
+      <div>
+        <h1>My to do list ({toDos.length})</h1>
+        <form onSubmit={onSubmit}>
+          <input
+            value={toDo}
+            onChange={onChange}
+            type="text"
+            placeholder="Write your to do list..." />
+          <button>Add to list</button>
+        </form>
+      </div>
+    );
+  }
+
+  const root = document.getElementById("root");
+  ReactDOM.render(<App />, root);
+</script>
+
+</html>
